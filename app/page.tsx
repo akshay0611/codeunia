@@ -1,5 +1,3 @@
-
-
 import { Hero } from "@/components/hero";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 
