@@ -38,6 +38,14 @@ export default function Header() {
             Blog
             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
           </Link>
+          <Link href="/contact" className="text-sm font-medium hover:text-primary transition-colors relative group">
+            Contact Us
+            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+          </Link>
+          <Link href="/policy" className="text-sm font-medium hover:text-primary transition-colors relative group">
+            Policy
+            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+          </Link>
         </nav>
 
         {/* desktop auth & theme */}
@@ -96,6 +104,20 @@ export default function Header() {
               onClick={() => setIsMenuOpen(false)}
             >
               Blog
+            </Link>
+            <Link
+              href="/contact"
+              className="block text-sm font-medium hover:text-primary transition-colors py-2"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Contact Us
+            </Link>
+            <Link
+              href="/policy"
+              className="block text-sm font-medium hover:text-primary transition-colors py-2"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Policy
             </Link>
             <div className="flex space-x-2 pt-4">
               <Button variant="ghost" asChild className="flex-1">
