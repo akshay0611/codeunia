@@ -10,18 +10,20 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60 shadow-sm">
+    <header className="fixed top-0 z-50 w-full border-b bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60 shadow-sm">
       <div className="container flex h-16 items-center justify-between px-4">
-        {/* logo section */}
-        <Link href="/" className="flex items-center space-x-2 hover:scale-105 transition-transform duration-200">
-          <div className="w-10 h-10 bg-gradient-to-br from-primary to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
-            <Code2 className="h-6 w-6 text-white" />
-          </div>
-          <span className="text-xl font-bold gradient-text">Codeunia</span>
-        </Link>
+        {/* logo section - left */}
+        <div className="flex items-center">
+          <Link href="/" className="flex items-center space-x-2 hover:scale-105 transition-transform duration-200">
+            <div className="w-10 h-10 bg-gradient-to-br from-primary to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+              <Code2 className="h-6 w-6 text-white" />
+            </div>
+            <span className="text-xl font-bold gradient-text">Codeunia</span>
+          </Link>
+        </div>
 
-        {/* desktop nav*/}
-        <nav className="hidden md:flex items-center space-x-8">
+        {/* desktop nav - center */}
+        <nav className="hidden md:flex items-center space-x-8 absolute left-1/2 transform -translate-x-1/2">
           <Link href="/" className="text-sm font-medium hover:text-primary transition-colors relative group">
             Home
             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
@@ -38,9 +40,13 @@ export default function Header() {
             Blog
             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
           </Link>
+          <Link href="/contact" className="text-sm font-medium hover:text-primary transition-colors relative group">
+            Contact
+            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+          </Link>
         </nav>
 
-        {/* desktop auth & theme */}
+        {/* desktop auth & theme - right */}
         <div className="hidden md:flex items-center space-x-4">
           <ThemeToggle />
           <Button variant="ghost" asChild className="hover:scale-105 transition-transform">
@@ -96,6 +102,13 @@ export default function Header() {
               onClick={() => setIsMenuOpen(false)}
             >
               Blog
+            </Link>
+            <Link
+              href="/contact"
+              className="block text-sm font-medium hover:text-primary transition-colors py-2"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Contact
             </Link>
             <div className="flex space-x-2 pt-4">
               <Button variant="ghost" asChild className="flex-1">
