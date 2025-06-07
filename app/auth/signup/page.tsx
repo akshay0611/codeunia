@@ -9,7 +9,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
-import { Code2, Github, Mail, Eye, EyeOff, Check } from "lucide-react"
+import { Code2, Github, Mail, Eye, EyeOff, Check, Code, Terminal, Database, Server, Cpu, Layers } from "lucide-react"
+import { motion } from "framer-motion"
+import { cn } from "@/lib/utils"
 
 export default function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false)
@@ -43,180 +45,386 @@ export default function SignUpPage() {
   ]
 
   return (
-    <div className="min-h-screen flex items-center justify-center py-12 px-4 bg-muted/50">
-      <div className="w-full max-w-md space-y-8">
-        {/* code unia logo */}
-        <div className="text-center">
-          <Link href="/" className="inline-flex items-center space-x-2">
-            <Code2 className="h-8 w-8 text-primary" />
-            <span className="text-2xl font-bold">Codeunia</span>
-          </Link>
-          <h2 className="mt-6 text-3xl font-bold">Join the community</h2>
-          <p className="mt-2 text-muted-foreground">Create your account and start your coding journey with us</p>
-        </div>
-
-        <Card>
-          <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl text-center">Sign Up</CardTitle>
-            <CardDescription className="text-center">Create your account to get started</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            {/* socials login */}
-            <div className="grid grid-cols-2 gap-4">
-              <Button variant="outline" className="w-full">
-                <Github className="mr-2 h-4 w-4" />
-                GitHub
-              </Button>
-              <Button variant="outline" className="w-full">
-                <Mail className="mr-2 h-4 w-4" />
-                Google
-              </Button>
-            </div>
-
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <Separator />
-              </div>
-              <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-background px-2 text-muted-foreground">Or continue with email</span>
-              </div>
-            </div>
-
-            {/* sign up form of codeunia*/}
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="firstName">First Name</Label>
-                  <Input
-                    id="firstName"
-                    name="firstName"
-                    placeholder="John"
-                    value={formData.firstName}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="lastName">Last Name</Label>
-                  <Input
-                    id="lastName"
-                    name="lastName"
-                    placeholder="Doe"
-                    value={formData.lastName}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="john@example.com"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
-                <div className="relative">
-                  <Input
-                    id="password"
-                    name="password"
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Create a strong password"
-                    value={formData.password}
-                    onChange={handleInputChange}
-                    required
-                  />
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                    onClick={() => setShowPassword(!showPassword)}
-                  >
-                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                  </Button>
-                </div>
-
-                {/* password req. */}
-                {formData.password && (
-                  <div className="space-y-1">
-                    {passwordRequirements.map((req, index) => (
-                      <div key={index} className="flex items-center space-x-2 text-xs">
-                        <Check className={`h-3 w-3 ${req.met ? "text-green-500" : "text-muted-foreground"}`} />
-                        <span className={req.met ? "text-green-500" : "text-muted-foreground"}>{req.text}</span>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="confirmPassword">Confirm Password</Label>
-                <div className="relative">
-                  <Input
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    type={showConfirmPassword ? "text" : "password"}
-                    placeholder="Confirm your password"
-                    value={formData.confirmPassword}
-                    onChange={handleInputChange}
-                    required
-                  />
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  >
-                    {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                  </Button>
-                </div>
-                {formData.confirmPassword && formData.password !== formData.confirmPassword && (
-                  <p className="text-xs text-red-500">Passwords do not match</p>
-                )}
-              </div>
-
-              <div className="flex items-center space-x-2">
-                <input id="terms" type="checkbox" className="h-4 w-4 rounded border-gray-300" required />
-                <Label htmlFor="terms" className="text-sm">
-                  I agree to the{" "}
-                  <Link href="/terms" className="text-primary hover:underline">
-                    Terms of Service
-                  </Link>{" "}
-                  and{" "}
-                  <Link href="/privacy" className="text-primary hover:underline">
-                    Privacy Policy
-                  </Link>
-                </Label>
-              </div>
-
-              <Button type="submit" className="w-full">
-                Create Account
-              </Button>
-            </form>
-
-            <div className="text-center text-sm">
-              <span className="text-muted-foreground">Already have an account? </span>
-              <Link href="/auth/signin" className="text-primary hover:underline">
-                Sign in
-              </Link>
-            </div>
-          </CardContent>
-        </Card>
-
-        <div className="text-center text-xs text-muted-foreground">
-          By creating an account, you agree to receive updates about new features, events, and community activities.
-        </div>
+    <div className="min-h-screen flex items-center justify-center py-12 px-4 bg-gradient-to-br from-background via-muted/30 to-muted/50 relative overflow-hidden">
+    
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-primary/20 rounded-full blur-3xl" />
+        <div className="absolute -bottom-1/2 -right-1/2 w-full h-full bg-primary/20 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 left-1/4 w-1/2 h-1/2 bg-secondary/20 rounded-full blur-3xl" />
       </div>
+
+      
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+       
+        <motion.div
+          animate={{
+            y: [0, -20, 0],
+            rotate: [0, 5, 0],
+          }}
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute top-1/4 left-1/4 text-primary/20"
+        >
+          <Code className="w-12 h-12" />
+        </motion.div>
+        <motion.div
+          animate={{
+            y: [0, 20, 0],
+            rotate: [0, -5, 0],
+          }}
+          transition={{
+            duration: 7,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute top-1/3 left-1/3 text-secondary/20"
+        >
+          <Terminal className="w-10 h-10" />
+        </motion.div>
+        <motion.div
+          animate={{
+            y: [0, -15, 0],
+            rotate: [0, 3, 0],
+          }}
+          transition={{
+            duration: 5,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute bottom-1/4 left-1/4 text-primary/20"
+        >
+          <Database className="w-8 h-8" />
+        </motion.div>
+        <motion.div
+          animate={{
+            y: [0, 15, 0],
+            rotate: [0, -3, 0],
+          }}
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute bottom-1/3 left-1/3 text-secondary/20"
+        >
+          <Server className="w-9 h-9" />
+        </motion.div>
+
+       
+        <motion.div
+          animate={{
+            y: [0, -10, 0],
+            rotate: [0, 4, 0],
+          }}
+          transition={{
+            duration: 5,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute top-1/4 right-1/4 text-primary/20"
+        >
+          <Cpu className="w-7 h-7" />
+        </motion.div>
+        <motion.div
+          animate={{
+            y: [0, 10, 0],
+            rotate: [0, -4, 0],
+          }}
+          transition={{
+            duration: 7,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute top-1/3 right-1/3 text-secondary/20"
+        >
+          <Layers className="w-8 h-8" />
+        </motion.div>
+        <motion.div
+          animate={{
+            y: [0, -15, 0],
+            rotate: [0, 3, 0],
+          }}
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute bottom-1/4 right-1/4 text-primary/20"
+        >
+          <Code2 className="w-9 h-9" />
+        </motion.div>
+        <motion.div
+          animate={{
+            y: [0, 15, 0],
+            rotate: [0, -3, 0],
+          }}
+          transition={{
+            duration: 5,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute bottom-1/3 right-1/3 text-secondary/20"
+        >
+          <Terminal className="w-8 h-8" />
+        </motion.div>
+
+       
+        <motion.div
+          animate={{
+            y: [0, -12, 0],
+            rotate: [0, 4, 0],
+          }}
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute top-1/2 left-1/2 text-primary/20"
+        >
+          <Database className="w-7 h-7" />
+        </motion.div>
+        <motion.div
+          animate={{
+            y: [0, 12, 0],
+            rotate: [0, -4, 0],
+          }}
+          transition={{
+            duration: 7,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute top-2/3 left-1/2 text-secondary/20"
+        >
+          <Server className="w-8 h-8" />
+        </motion.div>
+      </div>
+      
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="w-full max-w-md space-y-8 relative z-10 pt-16"
+      >
+        {/* code unia logo */}
+        <motion.div 
+          initial={{ scale: 0.9 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.3 }}
+          className="text-center"
+        >
+          <h2 className="mt-6 text-4xl font-bold tracking-tight">Join the community</h2>
+          <p className="mt-3 text-muted-foreground text-lg">Create your account and start your coding journey with us</p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <Card className="backdrop-blur-xl bg-background/40 border border-white/10 shadow-2xl hover:shadow-primary/5 transition-all duration-300 relative overflow-hidden">
+           
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 pointer-events-none" />
+            
+            <CardHeader className="space-y-1 relative">
+              <CardTitle className="text-2xl text-center font-bold">Sign Up</CardTitle>
+              <CardDescription className="text-center text-base">Create your account to get started</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6 relative">
+              {/* socials login */}
+              <div className="grid grid-cols-2 gap-4">
+                <Button variant="outline" className="w-full hover:bg-background/80 transition-colors backdrop-blur-sm border-white/10 hover:border-primary/20">
+                  <Github className="mr-2 h-4 w-4" />
+                  GitHub
+                </Button>
+                <Button variant="outline" className="w-full hover:bg-background/80 transition-colors backdrop-blur-sm border-white/10 hover:border-primary/20">
+                  <Mail className="mr-2 h-4 w-4" />
+                  Google
+                </Button>
+              </div>
+
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <Separator className="bg-white/10" />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                  <span className="bg-background/40 backdrop-blur-sm px-2 text-muted-foreground">Or continue with email</span>
+                </div>
+              </div>
+
+              {/* sign up form of codeunia*/}
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="firstName" className="text-sm font-medium">First Name</Label>
+                    <Input
+                      id="firstName"
+                      name="firstName"
+                      placeholder="John"
+                      value={formData.firstName}
+                      onChange={handleInputChange}
+                      required
+                      className="h-11 focus:ring-2 focus:ring-primary/20 bg-background/30 backdrop-blur-sm border-white/10 hover:border-primary/20 transition-colors"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="lastName" className="text-sm font-medium">Last Name</Label>
+                    <Input
+                      id="lastName"
+                      name="lastName"
+                      placeholder="Doe"
+                      value={formData.lastName}
+                      onChange={handleInputChange}
+                      required
+                      className="h-11 focus:ring-2 focus:ring-primary/20 bg-background/30 backdrop-blur-sm border-white/10 hover:border-primary/20 transition-colors"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="email" className="text-sm font-medium">Email</Label>
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="john@example.com"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
+                    className="h-11 focus:ring-2 focus:ring-primary/20 bg-background/30 backdrop-blur-sm border-white/10 hover:border-primary/20 transition-colors"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="password" className="text-sm font-medium">Password</Label>
+                  <div className="relative">
+                    <Input
+                      id="password"
+                      name="password"
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Create a strong password"
+                      value={formData.password}
+                      onChange={handleInputChange}
+                      required
+                      className="h-11 focus:ring-2 focus:ring-primary/20 bg-background/30 backdrop-blur-sm border-white/10 hover:border-primary/20 transition-colors"
+                    />
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    </Button>
+                  </div>
+
+                  {/* password req. */}
+                  {formData.password && (
+                    <motion.div 
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      className="space-y-1.5 mt-2"
+                    >
+                      {passwordRequirements.map((req, index) => (
+                        <motion.div 
+                          key={index} 
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: index * 0.1 }}
+                          className="flex items-center space-x-2 text-xs"
+                        >
+                          <Check className={cn("h-3.5 w-3.5", req.met ? "text-green-500" : "text-muted-foreground")} />
+                          <span className={cn(req.met ? "text-green-500" : "text-muted-foreground")}>{req.text}</span>
+                        </motion.div>
+                      ))}
+                    </motion.div>
+                  )}
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="confirmPassword" className="text-sm font-medium">Confirm Password</Label>
+                  <div className="relative">
+                    <Input
+                      id="confirmPassword"
+                      name="confirmPassword"
+                      type={showConfirmPassword ? "text" : "password"}
+                      placeholder="Confirm your password"
+                      value={formData.confirmPassword}
+                      onChange={handleInputChange}
+                      required
+                      className="h-11 focus:ring-2 focus:ring-primary/20 bg-background/30 backdrop-blur-sm border-white/10 hover:border-primary/20 transition-colors"
+                    />
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    >
+                      {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    </Button>
+                  </div>
+                  {formData.confirmPassword && formData.password !== formData.confirmPassword && (
+                    <motion.p 
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="text-xs text-red-500 mt-1"
+                    >
+                      Passwords do not match
+                    </motion.p>
+                  )}
+                </div>
+
+                <div className="flex items-center space-x-2">
+                  <input 
+                    id="terms" 
+                    type="checkbox" 
+                    className="h-4 w-4 rounded border-white/10 focus:ring-primary/20 bg-background/30" 
+                    required 
+                  />
+                  <Label htmlFor="terms" className="text-sm">
+                    I agree to the{" "}
+                    <Link href="/terms" className="text-primary hover:underline">
+                      Terms of Service
+                    </Link>{" "}
+                    and{" "}
+                    <Link href="/privacy" className="text-primary hover:underline">
+                      Privacy Policy
+                    </Link>
+                  </Label>
+                </div>
+
+                <Button 
+                  type="submit" 
+                  className="w-full h-11 text-base font-medium hover:opacity-90 transition-opacity bg-primary/90 hover:bg-primary relative overflow-hidden group"
+                >
+                  <span className="relative z-10">Create Account</span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-white/10 to-primary/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+                </Button>
+              </form>
+
+              <div className="text-center text-sm">
+                <span className="text-muted-foreground">Already have an account? </span>
+                <Link href="/auth/signin" className="text-primary hover:underline font-medium">
+                  Sign in
+                </Link>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4 }}
+          className="text-center text-xs text-muted-foreground"
+        >
+          By creating an account, you agree to receive updates about new features, events, and community activities.
+        </motion.div>
+      </motion.div>
     </div>
   )
 }
