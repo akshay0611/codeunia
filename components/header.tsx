@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
@@ -8,6 +9,24 @@ import { Menu, X, Code2 } from "lucide-react"
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const pathname = usePathname()
+
+  // Helper function to check if a path is active
+  const isActive = (path: string) => {
+    if (path === "/") {
+      return pathname === "/"
+    }
+    return pathname.startsWith(path)
+  }
+
+  
+  const navItems = [
+    { href: "/", label: "Home" },
+    { href: "/about", label: "About" },
+    { href: "/events", label: "Events" },
+    { href: "/blog", label: "Blog" },
+    { href: "/contact", label: "Contact" },
+  ]
 
   return (
     <header className="fixed top-0 z-50 w-full border-b bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60 shadow-sm">
@@ -24,26 +43,26 @@ export default function Header() {
 
         {/* desktop nav - center */}
         <nav className="hidden md:flex items-center space-x-8 absolute left-1/2 transform -translate-x-1/2">
-          <Link href="/" className="text-sm font-medium hover:text-primary transition-colors relative group">
-            Home
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-          </Link>
-          <Link href="/about" className="text-sm font-medium hover:text-primary transition-colors relative group">
-            About
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-          </Link>
-          <Link href="/events" className="text-sm font-medium hover:text-primary transition-colors relative group">
-            Events
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-          </Link>
-          <Link href="/blog" className="text-sm font-medium hover:text-primary transition-colors relative group">
-            Blog
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-          </Link>
-          <Link href="/contact" className="text-sm font-medium hover:text-primary transition-colors relative group">
-            Contact
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-          </Link>
+          {navItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`text-sm font-medium transition-colors relative group ${
+                isActive(item.href)
+                  ? "text-primary"
+                  : "text-foreground hover:text-primary"
+              }`}
+            >
+              {item.label}
+              <span
+                className={`absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-300 ${
+                  isActive(item.href)
+                    ? "w-full"
+                    : "w-0 group-hover:w-full"
+                }`}
+              ></span>
+            </Link>
+          ))}
         </nav>
 
         {/* desktop auth & theme - right */}
@@ -75,41 +94,23 @@ export default function Header() {
       {isMenuOpen && (
         <div className="md:hidden border-t bg-background/95 backdrop-blur-xl">
           <nav className="container px-4 py-6 space-y-4">
-            <Link
-              href="/"
-              className="block text-sm font-medium hover:text-primary transition-colors py-2"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Home
-            </Link>
-            <Link
-              href="/about"
-              className="block text-sm font-medium hover:text-primary transition-colors py-2"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              About
-            </Link>
-            <Link
-              href="/events"
-              className="block text-sm font-medium hover:text-primary transition-colors py-2"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Events
-            </Link>
-            <Link
-              href="/blog"
-              className="block text-sm font-medium hover:text-primary transition-colors py-2"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Blog
-            </Link>
-            <Link
-              href="/contact"
-              className="block text-sm font-medium hover:text-primary transition-colors py-2"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Contact
-            </Link>
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`block text-sm font-medium transition-colors py-2 relative ${
+                  isActive(item.href)
+                    ? "text-primary font-semibold"
+                    : "text-foreground hover:text-primary"
+                }`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {item.label}
+                {isActive(item.href) && (
+                  <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-primary rounded-full"></span>
+                )}
+              </Link>
+            ))}
             <div className="flex space-x-2 pt-4">
               <Button variant="ghost" asChild className="flex-1">
                 <Link href="/auth/signin">Sign In</Link>
