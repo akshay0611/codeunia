@@ -1,5 +1,6 @@
 "use client"
 
+import Typewriter from 'typewriter-effect';
 import type React from "react"
 import { useState } from "react"
 import Link from "next/link"
@@ -129,7 +130,13 @@ export default function SignInPage() {
           transition={{ duration: 0.3 }}
           className="text-center"
         >
-          <h2 className="mt-6 text-4xl font-bold tracking-tight">Welcome Back</h2>
+          <h2 className="mt-6 text-4xl font-bold tracking-tight"><Typewriter
+            options={{
+              strings: ['Welcome Back'],
+              autoStart: true,
+              loop: true,
+            }}
+            /></h2>
           <p className="mt-3 text-muted-foreground text-lg">Sign in to continue your coding journey with Codeunia</p>
         </motion.div>
 

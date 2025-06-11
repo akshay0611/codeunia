@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-
+import Typewriter from 'typewriter-effect';
 import { useState } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -215,7 +215,14 @@ export default function SignUpPage() {
           transition={{ duration: 0.3 }}
           className="text-center"
         >
-          <h2 className="mt-6 text-4xl font-bold tracking-tight">Join the community</h2>
+          <h2 className="mt-6 text-4xl font-bold tracking-tight"><Typewriter
+              options={{
+                strings: ['Join Our Community'],
+                autoStart: true,
+                loop: true,
+
+              }}
+              /></h2>
           <p className="mt-3 text-muted-foreground text-lg">Create your account and start your coding journey with us</p>
         </motion.div>
 
