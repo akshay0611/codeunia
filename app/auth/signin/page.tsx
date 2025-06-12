@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 import { Code2, Github, Mail, Eye, EyeOff, Code, Terminal, Database, Server, Cpu, Layers } from "lucide-react"
 import { motion } from "framer-motion"
-
+import Typewriter from 'typewriter-effect';
 export default function SignInPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [formData, setFormData] = useState({
@@ -129,7 +129,14 @@ export default function SignInPage() {
           transition={{ duration: 0.3 }}
           className="text-center"
         >
-          <h2 className="mt-6 text-4xl font-bold tracking-tight">Welcome Back</h2>
+          <h2 className="mt-6 text-4xl font-bold tracking-tight"><Typewriter
+            options={{
+              strings: ['Welcome Back'],
+              autoStart: true,
+              loop: true,
+            }}
+            />
+            </h2>
           <p className="mt-3 text-muted-foreground text-lg">Sign in to continue your coding journey with Codeunia</p>
         </motion.div>
 
