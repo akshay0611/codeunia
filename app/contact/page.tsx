@@ -99,7 +99,26 @@ export default function ContactPage() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="text-5xl md:text-6xl font-bold tracking-tight leading-tight"
             >
-              Get in <span className="gradient-text">Touch</span>
+              Get in {""}
+              <motion.span 
+                className="gradient-text inline-block"
+                animate={{
+                  backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "linear"
+                }}
+                style={{
+                  background: "linear-gradient(90deg, #6366f1, #8b5cf6, #06b6d4, #6366f1)",
+                  backgroundSize: "300% 100%",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}
+              >
+                Touch
+              </motion.span>
             </motion.h1>
             <motion.p 
               initial={{ opacity: 0, y: 20 }}
@@ -430,7 +449,26 @@ export default function ContactPage() {
               🚀 Join Our Community
             </Badge>
             <h2 className="text-4xl md:text-5xl font-bold text-foreground dark:text-foreground/90">
-              Be Part of Something Amazing
+              Be Part of Something {""}
+              <motion.span 
+                className="gradient-text inline-block"
+                animate={{
+                  backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "linear"
+                }}
+                style={{
+                  background: "linear-gradient(90deg, #6366f1, #8b5cf6, #06b6d4, #6366f1)",
+                  backgroundSize: "300% 100%",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}
+              >
+                Amazing
+              </motion.span>
             </h2>
             <p className="text-xl text-muted-foreground dark:text-muted-foreground/90 leading-relaxed">
               Join our community of tech enthusiasts and start building real-world projects today.
