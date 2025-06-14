@@ -174,7 +174,7 @@ export default function AboutPage() {
               transition={{ duration: 0.3 }}
             >
               <div className="flex flex-col items-center justify-center gap-4">
-                <button className="bg-slate-800 no-underline group cursor-pointer relative shadow-2xl shadow-zinc-900 rounded-full p-px text-xs font-semibold leading-6 text-white inline-block">
+                <button className="bg-slate-800 no-underline group cursor-pointer relative shadow-2xl shadow-zinc-900 rounded-full p-px text-sm font-semibold leading-6 text-white inline-block">
                   <span className="absolute inset-0 overflow-hidden rounded-full">
                     <span className="absolute inset-0 rounded-full bg-[image:radial-gradient(75%_100%_at_50%_0%,rgba(56,189,248,0.6)_0%,rgba(56,189,248,0)_75%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                   </span>
@@ -284,9 +284,19 @@ export default function AboutPage() {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <Badge variant="outline" className="px-4 py-2 bg-primary/5 border-primary/20">
-                Why Choose Us
-              </Badge>
+              {/* copy from here  */}
+              <div className="flex flex-col items-center justify-center gap-4">
+                <button className="bg-slate-800 no-underline group relative shadow-2xl shadow-zinc-900 rounded-full p-px text-sm font-semibold leading-6 text-white inline-block cursor-default">
+                  <span className="absolute inset-0 overflow-hidden rounded-full">
+                    <span className="absolute inset-0 rounded-full bg-[image:radial-gradient(75%_100%_at_50%_0%,rgba(56,189,248,0.6)_0%,rgba(56,189,248,0)_75%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                  </span>
+                  <div className="relative flex space-x-2 items-center z-10 rounded-full bg-zinc-950 py-0.5 px-4 ring-1 ring-white/10">
+                    <span>Why Choose Us</span>
+                  </div>
+                  <span className="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-emerald-400/0 via-emerald-400/90 to-emerald-400/0 transition-opacity duration-500 group-hover:opacity-40" />
+                </button>
+              </div>
+              {/* to here  */}
               <h2 className="text-3xl md:text-4xl font-bold">
                 Our <span className="gradient-text">Features</span>
               </h2>
@@ -367,9 +377,18 @@ export default function AboutPage() {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <Badge variant="outline" className="px-4 py-2 bg-purple-500/5 border-purple-500/20">
-                Meet Our Team
-              </Badge>
+              
+              <div className="flex flex-col items-center justify-center gap-4">
+                <button className="bg-slate-800 no-underline group relative shadow-2xl shadow-zinc-900 rounded-full p-px text-sm font-semibold leading-6 text-white inline-block cursor-default">
+                  <span className="absolute inset-0 overflow-hidden rounded-full">
+                    <span className="absolute inset-0 rounded-full bg-[image:radial-gradient(75%_100%_at_50%_0%,rgba(56,189,248,0.6)_0%,rgba(56,189,248,0)_75%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                  </span>
+                  <div className="relative flex space-x-2 items-center z-10 rounded-full bg-zinc-950 py-0.5 px-4 ring-1 ring-white/10">
+                    <span>Meet Our Team</span>
+                  </div>
+                  <span className="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-emerald-400/0 via-emerald-400/90 to-emerald-400/0 transition-opacity duration-500 group-hover:opacity-40" />
+                </button>
+              </div>
               <h2 className="text-3xl md:text-4xl font-bold">
                 The <span className="gradient-text">People</span> Behind Codeunia
               </h2>
@@ -467,9 +486,18 @@ export default function AboutPage() {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <Badge variant="outline" className="px-4 py-2 bg-blue-500/5 border-blue-500/20">
-                Our Vision & Mission
-              </Badge>
+             
+              <div className="flex flex-col items-center justify-center gap-4">
+                <button className="bg-slate-800 no-underline group relative shadow-2xl shadow-zinc-900 rounded-full p-px text-sm font-semibold leading-6 text-white inline-block cursor-default">
+                  <span className="absolute inset-0 overflow-hidden rounded-full">
+                    <span className="absolute inset-0 rounded-full bg-[image:radial-gradient(75%_100%_at_50%_0%,rgba(56,189,248,0.6)_0%,rgba(56,189,248,0)_75%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                  </span>
+                  <div className="relative flex space-x-2 items-center z-10 rounded-full bg-zinc-950 py-0.5 px-4 ring-1 ring-white/10">
+                    <span> Our Vision & Mission</span>
+                  </div>
+                  <span className="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-emerald-400/0 via-emerald-400/90 to-emerald-400/0 transition-opacity duration-500 group-hover:opacity-40" />
+                </button>
+              </div>
               <h2 className="text-3xl md:text-4xl font-bold">
                 Building the <span className="gradient-text">Future</span>
               </h2>
@@ -635,9 +663,19 @@ export default function AboutPage() {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <Badge variant="outline" className="px-4 py-2 bg-green-500/5 border-green-500/20">
-                Success Stories
-              </Badge>
+
+              <div className="flex flex-col items-center justify-center gap-4">
+                <button className="bg-slate-800 no-underline group relative shadow-2xl shadow-zinc-900 rounded-full p-px text-sm font-semibold leading-6 text-white inline-block cursor-default">
+                  <span className="absolute inset-0 overflow-hidden rounded-full">
+                    <span className="absolute inset-0 rounded-full bg-[image:radial-gradient(75%_100%_at_50%_0%,rgba(56,189,248,0.6)_0%,rgba(56,189,248,0)_75%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                  </span>
+                  <div className="relative flex space-x-2 items-center z-10 rounded-full bg-zinc-950 py-0.5 px-4 ring-1 ring-white/10">
+                    <span> Success Stories</span>
+                  </div>
+                  <span className="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-emerald-400/0 via-emerald-400/90 to-emerald-400/0 transition-opacity duration-500 group-hover:opacity-40" />
+                </button>
+              </div>
+              
               <h2 className="text-3xl md:text-4xl font-bold">
                 What Our <span className="gradient-text">Learners</span> Say
               </h2>
