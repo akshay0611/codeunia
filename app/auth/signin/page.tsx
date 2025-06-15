@@ -11,7 +11,14 @@ import { Separator } from "@/components/ui/separator"
 import { Code2, Github, Mail, Eye, EyeOff, Code, Terminal, Database, Server, Cpu, Layers } from "lucide-react"
 import { motion } from "framer-motion"
 import Typewriter from 'typewriter-effect';
+import { createClient } from "@/lib/supabase/client"
+import { useRouter } from "next/navigation"
+import { toast } from "sonner"
+import { AuthError } from "@supabase/supabase-js"
+
 export default function SignInPage() {
+  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const [formData, setFormData] = useState({
     email: "",
@@ -27,10 +34,36 @@ export default function SignInPage() {
     })
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // sign-in logic 
-    console.log("Sign in:", formData)
+    
+    try {
+      setIsLoading(true)
+      const supabase = createClient()
+
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: formData.email,
+        password: formData.password,
+      })
+
+      if (error) {
+        throw error
+      }
+
+      if (data?.user) {
+        toast.success("Signed in successfully!")
+        router.push("/dashboard")
+        router.refresh()
+      }
+    } catch (error) {
+      if (error instanceof AuthError) {
+        toast.error(error.message)
+      } else {
+        toast.error("Failed to sign in")
+      }
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -239,9 +272,12 @@ export default function SignInPage() {
 
                 <Button 
                   type="submit" 
-                    className="w-full h-11 text-base font-medium hover:opacity-90 transition-opacity bg-primary/90 hover:bg-primary relative overflow-hidden group"
+                  className="w-full h-11 text-base font-medium hover:opacity-90 transition-opacity bg-primary/90 hover:bg-primary relative overflow-hidden group"
+                  disabled={isLoading}
                 >
-                  <span className="relative z-10">Sign In</span>
+                  <span className="relative z-10">
+                    {isLoading ? "Signing in..." : "Sign In"}
+                  </span>
                   <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-white/10 to-primary/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
                 </Button>
               </form>

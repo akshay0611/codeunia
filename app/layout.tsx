@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { ThemeProvider } from "next-themes";
+import { Toaster } from "sonner";
 import "./globals.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
@@ -43,6 +44,7 @@ export default function RootLayout({
           </div>
           {children}
           <Footer/>
+          <Toaster richColors position="top-center" />
         </ThemeProvider>
         
       </body>
