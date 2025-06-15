@@ -12,8 +12,14 @@ import { Separator } from "@/components/ui/separator"
 import { Code2, Github, Mail, Eye, EyeOff, Check, Code, Terminal, Database, Server, Cpu, Layers } from "lucide-react"
 import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
+import { createClient } from "@/lib/supabase/client"
+import { useRouter } from "next/navigation"
+import { toast } from "sonner"
+import { AuthError } from "@supabase/supabase-js"
 
 export default function SignUpPage() {
+  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [formData, setFormData] = useState({
@@ -31,10 +37,46 @@ export default function SignUpPage() {
     })
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // logic of sign up
-    console.log("Sign up:", formData)
+    
+    if (formData.password !== formData.confirmPassword) {
+      toast.error("Passwords do not match")
+      return
+    }
+
+    try {
+      setIsLoading(true)
+      const supabase = createClient()
+
+      const { data, error } = await supabase.auth.signUp({
+        email: formData.email,
+        password: formData.password,
+        options: {
+          data: {
+            first_name: formData.firstName,
+            last_name: formData.lastName,
+          },
+        },
+      })
+
+      if (error) {
+        throw error
+      }
+
+      if (data?.user) {
+        toast.success("Account created successfully! Please check your email for verification.")
+        router.push("/auth/signin")
+      }
+    } catch (error) {
+      if (error instanceof AuthError) {
+        toast.error(error.message)
+      } else {
+        toast.error("An error occurred during sign up")
+      }
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   const passwordRequirements = [
@@ -408,8 +450,11 @@ export default function SignUpPage() {
                 <Button 
                   type="submit" 
                   className="w-full h-11 text-base font-medium hover:opacity-90 transition-opacity bg-primary/90 hover:bg-primary relative overflow-hidden group"
+                  disabled={isLoading}
                 >
-                  <span className="relative z-10">Create Account</span>
+                  <span className="relative z-10">
+                    {isLoading ? "Creating Account..." : "Create Account"}
+                  </span>
                   <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-white/10 to-primary/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
                 </Button>
               </form>
